@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}Charity Site{% endblock %}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css"  rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    </head>
+    <body>
+        
+        {% include 'charity/navbar.html' %}
+
+        {% comment %} <div class="container mx-auto mt-8"> {% endcomment %}
+            {% block content %}
+            {% endblock %}
+        {% comment %} </div> {% endcomment %}
+        
+        {% include 'charity/footer.html' %}
+
+        <script src="https://unpkg.com/alpinejs@3.12.0/dist/cdn.min.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    </body>
+</html>
