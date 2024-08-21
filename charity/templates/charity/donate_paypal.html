@@ -3,51 +3,55 @@
 {% block title %}Donate with PayPal{% endblock %}
 
 {% block content %}
-<h1 class="text-2xl font-bold">Donate to {{ cause_name }}</h1>
+<div class="flex justify-center items-center min-1/2 mt-5 flex-grow">
+    <div class="w-full max-w-sm mx-auto px-6 py-8 rounded-lg shadow-md hover:shadow-lg bg-white">
+        <h1 class="text-2xl font-bold text-center mb-4">Donate to {{ cause_name }}</h1>
 
-<p>Amount: ${{ donation_amount }}</p>
+        <p class="text-center mb-4">Amount: ${{ donation_amount }}</p>
 
-<div id="paypal-button-container"></div>
+        <div id="paypal-button-container"></div>
 
-<script src="https://www.paypal.com/sdk/js?client-id={{ paypal_client_id }}&currency=USD"></script>
+        <script src="https://www.paypal.com/sdk/js?client-id={{ paypal_client_id }}&currency=USD"></script>
 
-<script>
-    paypal.Buttons({
-        createOrder: function(data, actions) {
-            return actions.order.create({
-                purchase_units: [{
-                    amount: {
-                        value: '{{ donation_amount }}'
-                    },
-                    description: 'Donation for {{ cause_name }}'
-                }]
-            });
-        },
-        onApprove: function(data, actions) {
-            return actions.order.capture().then(function(details) {
-                return fetch('{% url "paypal_transaction_complete" %}', {
-                    method: 'post',
-                    headers: {
-                        'content-type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    },
-                    body: JSON.stringify({
-                        orderID: data.orderID,
-                        donation_id: '{{ donation_id }}'
-                    })
-                }).then(function(response) {
-                    return response.json();
-                }).then(function(result) {
-                    if (result.status === 'success') {
-                        window.location.href = '{% url "donation_success" %}';
-                    } else {
-                        alert('There was an error processing your donation. Please try again.');
-                    }
-                });
-            });
-        }
-    }).render('#paypal-button-container');
-</script>
+        <script>
+            paypal.Buttons({
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: '{{ donation_amount }}'
+                            },
+                            description: 'Donation for {{ cause_name }}'
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        return fetch('{% url "paypal_transaction_complete" %}', {
+                            method: 'post',
+                            headers: {
+                                'content-type': 'application/json',
+                                'X-CSRFToken': '{{ csrf_token }}'
+                            },
+                            body: JSON.stringify({
+                                orderID: data.orderID,
+                                donation_id: '{{ donation_id }}'
+                            })
+                        }).then(function(response) {
+                            return response.json();
+                        }).then(function(result) {
+                            if (result.status === 'success') {
+                                window.location.href = '{% url "donation_success" %}';
+                            } else {
+                                alert('There was an error processing your donation. Please try again.');
+                            }
+                        });
+                    });
+                }
+            }).render('#paypal-button-container');
+        </script>
+    </div>
+</div>
 
 
 {% endblock %}

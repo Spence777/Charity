@@ -1,4 +1,5 @@
 from paypal.standard.forms import PayPalPaymentsForm
+from paypal.standard.ipn.signals import valid_ipn_received
 from django.urls import reverse
 from django.conf import settings
 from decimal import Decimal
@@ -100,6 +101,7 @@ def Donate(request):
             cause.raised_amount += donation.amount
             cause.save()
             
+            donation.save()
             # Instead of creating a PayPal form, we'll pass necessary data to the template
             context = {
                 'form': form,

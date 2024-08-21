@@ -13,7 +13,6 @@ urlpatterns = [
     path('donation-success/', donation_success, name='donation_success'),
     path('donation-cancel/', donation_cancel, name='donation_cancel'),
     
-
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
