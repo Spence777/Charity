@@ -1,0 +1,163 @@
+.glass-effect {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.disabled-checkbox {
+    opacity: 0.5; /* Makes the checkbox look greyed out */
+    pointer-events: none; /* Prevents clicking */
+}
+
+.disabled-checkbox .form-checkbox {
+    background-color: #e5e7eb; /* Tailwind's 'gray-200' */
+    border-color: #d1d5db; /* Tailwind's 'gray-300' */
+}
+
+
+/* Make the footer sticky to the bottom */
+html, body {
+    height: 100%; /* Ensure the body takes full height */
+    margin: 0; /* Remove any default margin */
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    font-family: 'poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Ensure footer sticks at the bottom */
+}
+
+.sticky-footer {
+    margin-top: auto; /* Push the footer to the bottom */
+    width: 100%; /* Make sure the footer spans the entire width */
+}
+
+.bg-gradient-to-br {
+    background: linear-gradient(to bottom right, #ffffff, #f7fafc, #d1fae5);
+}
+
+/* Mission Text Styling */
+.mission-text h1, .mission-text h2 {
+    font-weight: 800;
+    color: #1e293b; /* navy-900 */
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Subtitle Styling */
+.text-emerald-500 {
+    color: #10b981; /* Emerald-500 */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 1.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slide-in {
+    animation: slideIn 2s ease-out;
+}
+
+/* Responsive Styling */
+@media (min-width: 768px) {
+    .mission-text h1 {
+        font-size: 3rem; /* For larger screens */
+    }
+    .mission-text h2 {
+        font-size: 3rem;
+    }
+}
+
+
+
+
+
+/* Fullscreen loader */
+#loader {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+}
+
+/* Keyframes for spinning effect */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Hide content initially */
+#content {
+    display: none;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    33.33%, 66.66% { opacity: 1; }
+  }
+
+  .carousel-item {
+    animation: fadeInOut 30s infinite;
+  }
+
+  .carousel-item:nth-child(1) { animation-delay: 0s; }
+  .carousel-item:nth-child(2) { animation-delay: 10s; }
+  .carousel-item:nth-child(3) { animation-delay: 20s; }
+
+  .text-shadow-lg {
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .text-shadow-md {
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  }
+
+
+#navbar {
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    z-index: 1000;
+  }
+  
+  /* This class is added when the navbar becomes sticky */
+  .sticky-navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    left: 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional, to give a shadow when sticky */
+    z-index: 1000;
+    background-color: white; /* Ensure background stays visible */
+  }

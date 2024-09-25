@@ -1,0 +1,137 @@
+{% extends 'charity/base.html' %}
+{% block title %}{{ post.title }} - Charity{% endblock %}
+
+{% block content %}
+{% comment %} <div class="container mx-auto mt-6">
+    <div class="max-w-3xl mx-auto">
+        
+        <!-- Blog Post -->
+        <div class="mb-8 p-6 bg-white rounded-lg shadow-md">
+            <h1 class="text-3xl font-bold">{{ post.title }}</h1>
+            <p class="text-gray-600 text-sm mb-4">Published on {{ post.pub_date|date:"F d, Y" }} by {{ post.author }}</p>
+            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-96 object-cover rounded-lg mb-6">
+            <div class="prose prose-lg">
+                {{ post.content|linebreaks }}
+            </div>
+        </div>
+
+        <!-- Comment Section -->
+        <div class="bg-white rounded-lg shadow-md p-6 mt-8">
+            <h2 class="text-2xl font-bold mb-4">Comments</h2>
+
+            {% if comments %}
+                <ul>
+                    {% for comment in comments %}
+                        <li class="mb-4">
+                            <p class="text-sm text-gray-600">By {{ comment.author }} on {{ comment.created_at|date:"F d, Y" }}</p>
+                            <p>{{ comment.content }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No comments yet. Be the first to comment!</p>
+            {% endif %}
+        </div>
+
+        <!-- Add Comment Form -->
+        {% if request.user.is_authenticated %}
+        <div class="mt-6 bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-xl font-bold mb-4">Leave a Comment</h3>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-4">
+                    {{ comment_form.content.label_tag }}
+                    {% comment %} {{ comment_form.content|safe:"rows=5,cols=40" }} {% endcomment %}
+                    {% comment %} {{ comment_form.content|attr:"rows:5,cols:40" }} {% endcomment %}
+                    {% comment %} {{ comment_form.content }}
+                </div>
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Submit</button>
+            </form>
+        </div>
+        {% else %}
+        <p>You must be <a href="{% url 'login' %}" class="text-blue-500">logged in</a> to comment.</p>
+        {% endif %}
+    </div>
+</div> {% endcomment %} 
+
+<div class="container mx-auto mt-6">
+    <div class="lg:flex lg:-mx-6 gap-12">
+        <!-- Main Blog Section -->
+        <div class="lg:w-2/4 lg:px-6">
+            <!-- Blog Post -->
+            <div class="mb-8 p-6 bg-white rounded-lg shadow-md">
+                <h1 class="text-3xl font-bold">{{ post.title }}</h1>
+                <p class="text-gray-600 text-sm mb-4">
+                    Published on {{ post.pub_date|date:"F d, Y" }} by {{ post.author }}
+                </p>
+                <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-96 object-cover rounded-lg mb-6">
+                <div class="prose prose-lg">
+                    {{ post.content|linebreaks }}
+                </div>
+            </div>
+
+            <!-- Comment Section -->
+            <div class="bg-white rounded-lg shadow-md p-6 mt-8">
+                <h2 class="text-2xl font-bold mb-4">Comments</h2>
+
+                {% if comments %}
+                    <ul>
+                        {% for comment in comments %}
+                            <li class="mb-4">
+                                <p class="text-sm text-gray-600">By {{ comment.author }} on {{ comment.created_at|date:"F d, Y" }}</p>
+                                <p>{{ comment.content }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No comments yet. Be the first to comment!</p>
+                {% endif %}
+            </div>
+
+            <!-- Add Comment Form -->
+            {% if request.user.is_authenticated %}
+            <div class="mt-6 bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-bold mb-4">Leave a Comment</h3>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        {{ comment_form.content.label_tag }}
+                        {{ comment_form.content }}
+                    </div>
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Submit</button>
+                </form>
+            </div>
+            {% else %}
+            <p>You must be <a href="{% url 'login' %}" class="text-blue-500">logged in</a> to comment.</p>
+            {% endif %}
+        </div>
+
+        <!-- Sidebar Section with Recent Posts -->
+        <div class="lg:w-2/4 lg:px-6 mt-8 lg:mt-0">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 sticky top-6">
+                <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-6">Latest Posts</h3>
+                <ul class="space-y-6">
+                    {% for post in latest_posts|slice:":5" %}
+                    <li>
+                        <a class="hover:underline" href="{% url 'blog_detail' post.slug %}" class="flex items-center group">
+                            {% comment %} <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-16 h-16 object-cover rounded-lg mr-4"> {% endcomment %}
+                            <div>
+                                <h4 class="font-semibold text-gray-800 dark:text-gray-100 group-hover:text-blue-500 transition-colors">{{ post.title }}</h4>
+                                <time class="text-sm text-gray-500 dark:text-gray-400 flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 mr-1">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 0v4M3 8h18M4 21h16a2 2 0 002-2V8a2 2 0 00-2-2H4a2 2 0 00-2 2v11a2 2 0 002 2z"/>
+                                    </svg>
+                                    {{ post.pub_date|date:"F d, Y" }}
+                                </time>
+                            </div>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

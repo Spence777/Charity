@@ -4,7 +4,7 @@
 {% block title %}Donate{% endblock %}
 
 {% block content %}
-<div class="w-full max-w-sm mx-auto px-6 py-8 rounded-lg shadow-md hover:shadow-lg bg-white">
+{% comment %} <div class="w-full max-w-sm mx-auto px-6 py-8 rounded-lg shadow-md hover:shadow-lg bg-white">
     <h1 class="text-2xl font-bold text-center mb-4">Donate to a Cause</h1>
 
     <form method="POST">
@@ -12,5 +12,20 @@
         {{ form|crispy }}
         <button type="submit" class="bg-blue-500 text-white px-4 py-2 mt-4 rounded">Donate</button>
     </form>
+</div> {% endcomment %}
+
+<div class="min-h-screen bg-gray-100 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="w-full max-w-md mx-auto">
+        <div class="bg-white py-8 px-4 sm:rounded-lg sm:px-10">
+            <h2 class="mb-6 text-center text-3xl font-extrabold text-gray-900">
+                Donate to a Cause
+            </h2>
+            <form method="POST" class="space-y-6">
+                {% csrf_token %}
+                {% crispy form %}
+            </form>
+        </div>
+    </div>
 </div>
+
 {% endblock %}

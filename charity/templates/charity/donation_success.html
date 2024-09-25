@@ -3,6 +3,15 @@
 {% block title %}Donation Success{% endblock %}
 
 {% block content %}
-<h1 class="text-2xl font-bold">Thank You for Your Donation!</h1>
-<p>Your donation was successfully processed.</p>
+
+    <section class="flex items-center justify-center mt-20">
+        <div class="bg-white rounded-lg shadow-lg p-8 text-center max-w-sm mx-auto transition-transform transform hover:scale-105">
+            <h1 class="text-2xl font-bold mb-4 text-green-600">Thank You for Your Donation!</h1>
+            <p class="mb-6 text-green-600">Your donation was successfully processed.</p>
+            <a class="block font-medium text-green-600 hover:text-green-700 hover:underline" href="{% url 'causes' %}">
+                Go back to causes
+            </a>
+        </div>
+    </section>
+
 {% endblock %}

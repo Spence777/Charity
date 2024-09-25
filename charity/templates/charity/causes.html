@@ -15,27 +15,76 @@
     </div>
 </section>
 
-<section class="bg-gray-100 p-8 mt-4">
+{% comment %} <section class="bg-gray-100 p-8 mt-4">
     <div class="container mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
+            <!-- Insert the card code here -->
             {% for cause in causes %}
-        
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="{{ cause.image.url }}" alt="{{ cause.name }}"  class="w-full h-48 object-cover"/>
+            <div class="relative flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96">
+                <div class="relative h-56 mx-4 -mt-6 overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
+                    <img src="{{ cause.image.url }}" alt="{{ cause.name }}" class="w-full h-full object-cover transition-transform duration-300 ease-in-out transform hover:scale-110" />
+                </div>
                 <div class="p-6">
-                    <h3 class="text-xl font-bold text-navy-900 mb-4">{{ cause.description }}</h3>
-
+                    <h5 class="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                        {{ cause.description }}
+                    </h5>
                     <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4">
                         <div class="bg-emerald-500 h-2.5 rounded-full" style="width: {{ cause.progress_percentage }}%;"></div>
                     </div>
-
-                    <p class="text-sm mt-1">{{ cause.progress_percentage|floatformat:2 }}% raised</p>
-                    <div class="flex justify-between text-sm">
-                        <span>Raised: <strong class="text-navy-900">${{ cause.raised_amount|intcomma }}</strong></span>
-                        <span>Goal: <strong class="text-navy-900">${{ cause.goal_amount|intcomma }}</strong></span>
+                    <p class="block font-sans text-sm antialiased font-light leading-relaxed text-inherit mb-2">
+                        {{ cause.progress_percentage|floatformat:2 }}% raised
+                    </p>
+                    <div class="flex justify-between text-sm mb-4">
+                        <span>Raised: <strong class="text-blue-gray-900">${{ cause.raised_amount|intcomma }}</strong></span>
+                        <span>Goal: <strong class="text-blue-gray-900">${{ cause.goal_amount|intcomma }}</strong></span>
                     </div>
-                    <a href="{% url 'donate' %}?cause={{ cause.id }}" class="bg-gray-700 text-white px-4 py-2 mt-4 rounded block w-full flex justify-center hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Donate</a>
+                </div>
+                <div class="p-6 pt-0">
+                    <a href="{% url 'donate' %}?cause={{ cause.id }}" class="bg-gray-700 text-white px-4 py-2 mt-4 rounded block w-full flex justify-center hover:bg-gray-600 focus:outline-none focus:bg-gray-600 transition duration-300 ease-in-out">
+                        Donate
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section> {% endcomment %}
+
+<section class="bg-light-100 p-8 mt-4 card-container">
+    <div class="container mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for cause in causes %}
+            <div class="relative flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96 card">
+                <div class="relative h-56 mx-4 -mt-6 overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40 card-image">
+                    <img src="{{ cause.image.url }}" alt="{{ cause.name }}" class="w-full h-full object-cover transition-transform duration-300 ease-in-out transform hover:scale-110" />
+                </div>
+                <div class="p-6 card-content">
+                    <h5 class="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900 card-title">
+                        {{ cause.description }}
+                    </h5>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+                        <div class="bg-emerald-500 h-2.5 rounded-full" style="width: {% if cause.progress_percentage > 100 %}100{% else %}{{ cause.progress_percentage }}{% endif %}%;"></div>
+                    </div>
+                    <p class="block font-sans text-sm antialiased font-light leading-relaxed text-inherit mb-2">
+                        {% if cause.progress_percentage > 100 %}
+                            Goal reached! {{ cause.progress_percentage|floatformat:2 }}% raised
+                        {% else %}
+                            {{ cause.progress_percentage|floatformat:2 }}% raised
+                        {% endif %}
+                    </p>
+                    <div class="flex justify-between text-sm mb-4 card-stats">
+                        <span>Raised: <strong class="text-blue-gray-900">${{ cause.raised_amount|intcomma }}</strong></span>
+                        <span>Goal: <strong class="text-blue-gray-900">${{ cause.goal_amount|intcomma }}</strong></span>
+                    </div>
+                </div>
+                <div class="p-6 pt-0">
+                    <a href="{% url 'donate' %}?cause={{ cause.id }}" class="bg-gray-700 text-white px-4 py-2 mt-4 rounded block w-full flex justify-center hover:bg-gray-600 focus:outline-none focus:bg-gray-600 transition duration-300 ease-in-out donate-button">
+                        {% if cause.progress_percentage >= 100 %}
+                            Donate More
+                        {% else %}
+                            Donate
+                        {% endif %}
+                    </a>
                 </div>
             </div>
             {% endfor %}
@@ -43,5 +92,23 @@
     </div>
 </section>
 
+
+<div class="scroll-container bg-white shadow-md rounded-lg p-4">
+    <div class="scroll-content">
+        {% for donation in donations %}
+            <div class="inline-block mx-4 bg-blue-100 rounded-full px-4 py-2 text-blue-800">
+                <span class="font-bold">
+                    {% if donation.is_anonymous %}
+                        Anonymous
+                    {% else %}
+                        {{ donation.donor_name }}
+                    {% endif %}
+                </span>
+                donated ${{ donation.amount }} to
+                <span class="italic">{{ donation.cause.name }}</span>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 
 {% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'charity/base.html' %}
+
+{% block title %}Message Success{% endblock %}
+
+{% block content %}
+
+    <section class="flex items-center justify-center mt-20">
+        <div class="bg-white rounded-lg shadow-lg p-8 text-center max-w-sm mx-auto transition-transform transform hover:scale-105">
+            <h1 class="text-2xl font-bold mb-4 text-green-600">Thank You for Contacting Us!</h1>
+            <p class="mb-6 text-green-600">We'll get back to you via Email</p>
+            <a class="block font-medium text-green-600 hover:text-green-700 hover:underline" href="{% url 'causes' %}">
+                Go back to causes
+            </a>
+        </div>
+    </section>
+
+{% endblock %}

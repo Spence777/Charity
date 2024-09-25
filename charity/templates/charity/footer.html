@@ -1,11 +1,11 @@
-<div class="min-1/2 flex flex-col">
-    <footer class="bg-white dark:bg-gray-900 w-full">
+{% load static %}
+    <footer class="sticky-footer bg-white dark:bg-gray-900 w-full">
         <div class="container flex flex-col items-center justify-between p-6 mx-auto space-y-4 sm:space-y-0 sm:flex-row">
             <a href="#">
-                <img class="w-auto h-7" src="https://merakiui.com/images/full-logo.svg" alt="">
+                <img class="w-auto h-7" src="{% static 'images/logo.png' %}" alt="">
             </a>
 
-            <p class="text-sm text-gray-600 dark:text-gray-300">© Copyright 2021. All Rights Reserved.</p>
+            <p class="text-sm text-gray-600 dark:text-gray-300">&copy; {% now "Y" %}. All Rights Reserved.</p>
 
             <div class="flex -mx-2">
                 <a href="#" class="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400" aria-label="Reddit">
@@ -37,4 +37,3 @@
             </div>
         </div>
     </footer>
-</div>
