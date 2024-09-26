@@ -78,18 +78,8 @@ const carouselItems = document.querySelectorAll('.carousel-item');
     setInterval(showNextSlide, 4000);
 
 
-window.onload = function() {
-    document.getElementById("loader").style.display = "none";
-    document.getElementById("content").style.display = "block";
-};
+// window.onload = function() {
+//     document.getElementById("loader").style.display = "none";
+//     document.getElementById("content").style.display = "block";
+// };
 
-window.addEventListener('scroll', function() {
-    var navbar = document.getElementById('navbar');
-    var sticky = navbar.offsetTop;
-
-    if (window.pageYOffset > sticky) {
-      navbar.classList.add('sticky-navbar');
-    } else {
-      navbar.classList.remove('sticky-navbar');
-    }
-  });

@@ -256,6 +256,39 @@
 
 {% comment %} end about on home {% endcomment %}
 
+{% comment %} <div class="ticker-container bg-gray-200 overflow-x-hidden py-2">
+    <div class="ticker flex whitespace-nowrap animate-scroll">
+        {% for donation in donations %}
+            <div class="ticker-item flex items-center space-x-2 px-4">
+                {% if donation.is_anonymous %}
+                    <span>Anonymous</span> <br>
+                {% else %}
+                    <span>{{ donation.donor_name }}</span> <br>
+                {% endif %}
+                <span>donated {{ donation.amount }} to</span> <br>
+                <span>{{ donation.cause.name }}</span>
+            </div>
+        {% endfor %}
+    </div>
+</div> {% endcomment %}
+
+<div class="ticker-container bg-gray-200 overflow-x-hidden">
+    <div class="ticker-heading">Previous Donations</div>
+    <div class="ticker flex whitespace-nowrap animate-scroll" data-content="{% for donation in donations %}...{% endfor %}">
+        {% for donation in donations %}
+            <div class="ticker-item flex items-center space-x-2 px-4">
+                {% if donation.is_anonymous %}
+                    <span>Anonymous</span> <br>
+                {% else %}
+                    <span>{{ donation.donor_name }}</span> <br>
+                {% endif %}
+                <span>donated {{ donation.amount }} to</span> <br>
+                <span>{{ donation.cause.name }}</span>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
 {% comment %} cause {% endcomment %}
 
 <section class="bg-white">

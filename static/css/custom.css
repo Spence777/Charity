@@ -92,12 +92,87 @@ body {
     }
 }
 
+/* ticker */
 
+.ticker-container {
+    background-color: #f3f4f6;
+    overflow: hidden;
+    padding: 0.5rem 0;
+    position: relative;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ticker-heading {
+    text-align: center;
+    padding: 0.75rem 0;
+    background-color: #e5e7eb;
+    font-weight: bold;
+    color: #1f2937;
+    font-size: 1rem;
+    border-bottom: 1px solid #d1d5db;
+}
+
+.ticker {
+    display: flex;
+    white-space: nowrap;
+    animation: scroll 30s linear infinite;
+    padding: 0.5rem 0;
+}
+
+.ticker-item {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 1rem;
+    margin-right: 2rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.ticker-item:hover {
+    transform: translateY(-2px);
+}
+
+.ticker-item span {
+    font-size: 0.875rem;
+    color: #4b5563;
+}
+
+.ticker-item span:first-child {
+    font-weight: bold;
+    color: #1f2937;
+}
+
+.ticker-item span:last-child {
+    color: #059669;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* Duplicate the ticker content for seamless looping */
+.ticker::after {
+    content: attr(data-content);
+    position: absolute;
+    white-space: nowrap;
+    left: 100%;
+    top: 0;
+}
+
+/* end ticker */
 
 
 
 /* Fullscreen loader */
-#loader {
+/* #loader {
     border: 16px solid #f3f3f3;
     border-top: 16px solid #3498db;
     border-radius: 50%;
@@ -113,20 +188,20 @@ body {
 }
 
 /* Keyframes for spinning effect */
-@keyframes spin {
+/* @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-}
+} */
 
 /* Hide content initially */
-#content {
+/* #content {
     display: none;
-}
+} */
 
 @keyframes fadeInOut {
     0%, 100% { opacity: 0; }
     33.33%, 66.66% { opacity: 1; }
-  }
+  } */
 
   .carousel-item {
     animation: fadeInOut 30s infinite;
@@ -161,3 +236,5 @@ body {
     z-index: 1000;
     background-color: white; /* Ensure background stays visible */
   }
+
+  
